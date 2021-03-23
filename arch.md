@@ -12,6 +12,8 @@
     - PKGBUILD
 
 ### Installing Arch
+Do not expect support in channels intended for official Arch installs, if you want the official installation guide its [here](https://wiki.archlinux.org/index.php/Installation_guide)
+
 I assume that you know what you are doing before continuing, don't blame me if anything goes wrong. As they said, garbage in garbage out, the computer will return you what you told it to do, so theres no need to point fingers at anyone.
 
 **The only prerequisites is a Arch Linux bootable media**
@@ -26,9 +28,10 @@ So, you'll need to check if your computer is using BIOS or UEFI. Try running `ls
 
 ### Partitioning
 
-Make sure your `/dev/sda` is an empty disk, or not use parted and format the disk with
+Make sure the disk that you're trying to install Arch to is an empty disk, or not use parted and format the disk with
 ```
-parted /dev/sda //start parted with /dev/sda as its target device
+Use the command 'lsblk' to check the ID of the hard disk
+parted /dev/your-hard-disk //start parted with /dev/your-hard-disk as its target device
 mklabel gpt //format your hard disk as a gpt type disk
 ```
 
@@ -42,6 +45,8 @@ EDIT: to make life 100 times easier, run `unit GB` in `parted` to view your part
 A swap partition, normally its 1 times to 2 times the amount of your RAM, adjust it according to your needs (Ex. for me I have 8GB of RAM so I have a 8GB SWAP partition) flags: (set /dev/your-swap-partition swap on) partition-type: Linux Swap
 Aaaand the rest of the hard disk as your root '/' partition-type: Linux Filesystem
 ```
+If you would want alternatives for the partition table, you can check [here](https://wiki.archlinux.org/index.php/Partitioning#Example_layouts) for more information about it. I'm just covering the simple ones.
+
 Thats for the partitioning part. Yay, hopefully nothing went wrong.
 
 *This is purely for cross-reference*
@@ -155,6 +160,8 @@ Here comes the confusing and tricky part (at least for me)
 
 `grub-install --target=x86_64-efi --efi-directory=/mnt/boot/efi --bootloader-id=GRUB` to install grub bootloader, if you would want to change the id of the bootloader, feel free to change `--bootloader-id=name-of-your-choice`.
 
+There's another option only available for EFI which is the `--removeable` flag, which is to indicate that the installation is removable.
+
 And lastly, you'll need to generate a GRUB config. `grub-mkconfig -o /boot/grub/grub.cfg` to make the config.
 
 ### Setting up the repositories
@@ -168,6 +175,14 @@ If you want x32 packages, you might want to uncomment the `multilib` line and th
 `useradd -m -g users -G wheel,sudo -s your-username` to add a user which can use the `sudo` command. It seriously not recommended to use a root account as your everyday use, its really dangerous so you have been warned.
 
 `passwd your-username` to set the password for the user you're going to use for your everyday use. You should also run `xdg-user-dirs-update` after your reboot to generate the default folders for your home directory.
+
+### Kernels
+There are multiple kernels in Arch, and I'm covering the 4 main ones only.
+
+ - `linux` kernel, which is the default kernel that comes with the Arch installation
+ - `linux-hardened` kernel, a kernel focused more on security
+ - `linux-lts` kernel, which as the name indicates, its a long term support kernel, best for those people who doesn't like living on the bleeding edge
+ - `linux-zen` kernel, I'm also confused about what advantages it gives
 
 ### Setting up the GUI
 Now, you have finished installing the whole Arch OS, I hope its working still fine. But before you reboot into your actual OS, I recommend you to install a display manager and a windows manager.
@@ -230,7 +245,7 @@ pacman -Si pkg_name # Extensive information of the package online
 pacman -Qi pkg_name # Extensive information of the local package
 pacman -Qii pkg_name # Shows even moar extensive information
 pacman -Ql pkg_name # What kind of shit did that package install??!!
-pacman -Qtd # Catch orphaned packages and yeet them outta ya system
+pacman -Qtd # Catch orphaned packages and yeet them outta ya system (It doesn't help you uninstall them, you still gotta uninstall them nanually using the -Rs flag)
 ```
 There is a configuration file locate in `/etc/pacman.conf`, which is useful when you want to ignore a couple packages that you manually patched or has known issues unsolved. You'll see a line which is commented (or if you did uncomment it) ```#IgnorePkg=```
 
