@@ -4,12 +4,12 @@
 
 ## Table of Contents
 
-- [Installing Arch]
-- [Using i3 on Arch]
+- Installing Arch
+- Using `i3` and `emptty` on Arch (and some software recommendations)
 - Arch and Packages
-  - [Arch and Pacman]
-  - [Arch and the AUR (and yay)]
-    - [PKGBUILD**
+  - Arch and Pacman
+  - Arch and the AUR (and yay)
+    - PKGBUILD
 
 ### Installing Arch
 I assume that you know what you are doing before continuing, don't blame me if anything goes wrong. As they said, garbage in garbage out, the computer will return you what you told it to do, so theres no need to point fingers at anyone.
@@ -124,6 +124,86 @@ The timezones are listed in `/usr/share/zoneinfo` so just link your correspondin
 
 `hwclock --systohc` to make sure your hardware clock is correct.
 > Note: Both -w and –systohc option does the same. I like to use –systohc as it is easy to remember. –systohc stands for “system to hardware clock”, which copies the time from system to hardware clock.
+
+### Setting the locale
+
+> A locale is a set of environmental variables that defines the language, country, and character encoding settings (or any other special variant preferences) for your applications and shell session on a Linux system. These environmental variables are used by system libraries and locale-aware applications on the system.
+
+`nano /etc/locale.gen` and uncomment your corresponding locale that you're going to use. Normally, well, for most of us, we uncomment the lines `en_US.UTF-8` and `en_US ISO-8859-1`.
+
+After uncommenting it, you should run `locale-gen` to generate your locales.
+
+Create a new file with `nano /etc/locale.conf`, which will be your locale configuration, and append the lines `LANG=en_US.UTF-8`. This is for those who are using American English.
+
+If you want to set a permanent keyboard layout, go to `/etc/vconsole.conf` and append `KEYMAP=your-keyboard-layout`.
+
+### Setting the hostname
+`nano /etc/hostname` and just append the hostname you want for your computer into that file, that file is originally empty btw.
+
+Then you go to `/etc/hosts`, and you add this:
+```
+127.0.0.1       localhost
+::1             localhost
+127.0.1.1       myhostname.localdomain  myhostname
+```
+Change the `myhostname` to the hostname you appended into `/etc/hostname` just now.
+
+### Installing the bootloader
+Here comes the confusing and tricky part (at least for me)
+
+`pacman -S grub efibootmgr os-prober` to install grub
+
+`grub-install --target=x86_64-efi --efi-directory=/mnt/boot/efi --bootloader-id=GRUB` to install grub bootloader, if you would want to change the id of the bootloader, feel free to change `--bootloader-id=name-of-your-choice`.
+
+And lastly, you'll need to generate a GRUB config. `grub-mkconfig -o /boot/grub/grub.cfg` to make the config.
+
+### Setting up the repositories
+You can skip this part actually, but if you want to edit the mirrors then go to `/etc/pacman.conf` and uncomment out the repositories you want to use.
+
+If you want x32 packages, you might want to uncomment the `multilib` line and the line following it.
+
+### Setting up the user account
+`passwd` to first set the password for root
+
+`useradd -m -g users -G wheel,sudo -s your-username` to add a user which can use the `sudo` command. It seriously not recommended to use a root account as your everyday use, its really dangerous so you have been warned.
+
+`passwd your-username` to set the password for the user you're going to use for your everyday use. You should also run `xdg-user-dirs-update` after your reboot to generate the default folders for your home directory.
+
+### Setting up the GUI
+Now, you have finished installing the whole Arch OS, I hope its working still fine. But before you reboot into your actual OS, I recommend you to install a display manager and a windows manager.
+
+For me, I use `i3-wm` together with `emptty`. `i3` is a tiling windows manager, they have extensive documentations [here](https://i3wm.org/docs/userguide.html) to get you started. I'll be attaching my `config` in the repository for reference uses. `emptty` is a dead simple CLI display manager, its very configurable and you can check it out [here](https://github.com/tvrzna/emptty). If you don't fancy these kind of stuff you can use choose any of the desktop environments [here](https://wiki.archlinux.org/index.php/Desktop_environment).
+
+I'll be covering how to use `i3` and `emptty` in later guides.
+
+**You have finished setting up a working Arch OS! Congratulations!**
+
+### i3, emptty and Arch recommendations
+`i3` can make your life easier by a lot and it uses little to no RAM/CPU usage, almost everything can be configured, theres a variant called `i3-gaps` which as the name indicates, has gaps in between of windows. If you're new to `i3` you may find it really confusing, since everything is done via keyboard shortcuts, and you may need a bit of time to get used to it. Rest assured, it's going to be really nice after you have get used to it. You can copy the default config file from `/etc/i3/config` to `~/.config/i3/config` and edit it.
+
+`emptty` is also a lightweight display manager, it is ugly, but it does the job and its also fast, compared to other GUI display managers. The configuration file it located at `/etc/emptty/conf` and you might want to visit their github documentation [here](https://github.com/tvrzna/emptty) before editing it.
+
+`st` is a lightweight, and super configurable terminal emulator, since the source code is written in C and you'll have to manually compile it and copy the executable to `/usr/local/bin` to launch it via `dmenu` or via `i3` shortcuts. Here's the documentation [https://st.suckless.org/](https://st.suckless.org/)
+
+`dmenu` is commonly used as the application launcher for `i3`, and it isn't recommended to install `dmenu` via `pacman` since suckless tools are meant to be manually compiled. [Dmenu](https://tools.suckless.org/dmenu/)
+
+`slock` is a simple screen locker for linux, its *also* another suckless tools (I wonder why I have such love towards suckless tools lol). [slock](https://tools.suckless.org/slock/)
+
+`i3status-rs` is a status bar for `i3` and I love it due to the lightweightness of it and its also very configurable. It's written in Rust, and you can find the documentation [here](https://github.com/greshake/i3status-rust)
+
+`xscreensaver` is a screensaver, very ugly, but does its job perfectly. `caffeine` is a useful applet for you to control if you want the screensaver to be activated or not. (its just like caffeine preventing you frpm falling asleep while programming late at night)
+
+I don't really fancy Arch's built in clipboard manager, since I've had problems with it previously, `xfce4-clipman-plugin` is what I use.
+
+`dunst` is another simple, configurable and scriptable notification manager, you can copy my config file to `~.config/dunst/dunstrc`
+
+`redshift` is useful if you want to save your poor eyes from straining too much and becoming blind after hours of writing code.
+
+`calcurse` is another lightweight calendar that has tons of features for you to organize your day.
+
+`zsh` is a shell that is a few times better than the `/bin/bash` that you're defaulted to use. Go check out `oh-my-zsh` on github for more information about it.
+
+`doublecmd` is a ugly but a very useful file manager. Its *also* very configurable, with very confusing settings.
 
 ### Pacman
 Pacman is basically a nom nom friendly package manager (delicious, it eats packages rather than cherries) It's something of `apt` in Debian variants or `zypper` in SUSE variants.
