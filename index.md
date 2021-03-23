@@ -5,11 +5,13 @@
 ### Check TASKS.md for the upcoming changes :)
 
 ### Structure of this repository (For better reference):
- - `ARCH.md` for Arch Linux
+ -  [Arch Linux](epixinvites.github.io/arch.html)
  - `CPP.md` for C++
  - `EMACS.md` for Spacemacs
  - `TASKS.md` for planned changes
 
-## Contact me at @thewayfarrer on Wire if you would want to contribute
+## Contact me at @thewayfarrer on Wire if you would want to contribute or just to ask me something
+
+I write guides based on my experience, and I explain the commands you're going to run. My main aim here is to educate people, and not spoonfeed information to people. Learn and not copy paste yea ;)
 
 Edit: Most hyperlinks don't work yet, I haven't finished writing the guide. Sorry for the inconvenience.
