@@ -5,7 +5,7 @@
 ### Check TASKS.md for the upcoming changes :)
 
 ### Structure of this repository (For better reference):
- -  [Arch Linux](epixinvites.github.io/arch.html)
+ -  [Arch Linux](https://epixinvites.github.io/arch.html)
  - `CPP.md` for C++
  - `EMACS.md` for Spacemacs
  - `TASKS.md` for planned changes
