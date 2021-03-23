@@ -16,7 +16,7 @@ I assume that you know what you are doing before continuing, don't blame me if a
 
 **The only prerequisites is a Arch Linux bootable media**
 
-Don't fret when you're presented with a CLI interface when you first boot up the Arch media. As I said, installing Arch will definitely not be a walk in the park.
+Don't fret when you're presented with a CLI when you first boot up the Arch media. As I said, installing Arch will definitely not be a walk in the park.
 
 So, you'll need to check if your computer is using BIOS or UEFI. Try running `ls /sys/firmware/efi/efivars`. If its empty then your computer is running on BIOS, if it isn't then its UEFI.
 
@@ -77,7 +77,7 @@ Congrats, you got your computer partitioned!
 
 ### Connecting to the Internet
 
-I believe your wifi card is supported by Arch Linux, and you're using wireless internet, if you're using ethernet and `ping google.com` does return something, then skip this step. But well, knowing how to connect to the internet via a CLI interface is equally important.
+I believe your wifi card is supported by Arch Linux, and you're using wireless internet, if you're using ethernet and `ping google.com` does return something, then skip this step. But well, knowing how to connect to the internet via a CLI is equally important.
 
 Try running `ip link` and see if your wifi card is detected.
 Something like this should appear:
