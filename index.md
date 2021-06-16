@@ -8,9 +8,6 @@
  -  [Arch Linux](https://epixinvites.github.io/arch.html)
  - `CPP.md` for C++
  - `EMACS.md` for Spacemacs
- - `TASKS.md` for planned changes
-
-## Contact me at @thewayfarrer on Wire if you would want to contribute or just to ask me something
 
 I write guides based on my experience, and I explain the commands you're going to run. My main aim here is to educate people, and not spoonfeed information to people. Learn and not copy paste yea ;)
 
