@@ -206,7 +206,7 @@ I'll be covering how to use `i3` and `emptty` in later guides.
 
 `i3status-rs` is a status bar for `i3` and I love it due to the lightweightness of it and its also very configurable. It's written in Rust, and you can find the documentation [here](https://github.com/greshake/i3status-rust)
 
-`xscreensaver` is a screensaver, very ugly, but does its job perfectly. `caffeine` is a useful applet for you to control if you want the screensaver to be activated or not. (its just like caffeine preventing you frpm falling asleep while programming late at night)
+`xscreensaver` is a screensaver, very ugly, but does its job perfectly. `caffeine` is a useful applet for you to control if you want the screensaver to be activated or not. (its just like caffeine preventing you from falling asleep while programming late at night)
 
 I don't really fancy Arch's built in clipboard manager, since I've had problems with it previously, `xfce4-clipman-plugin` is what I use.
 
