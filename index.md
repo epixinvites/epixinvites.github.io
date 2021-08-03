@@ -5,4 +5,4 @@
 ### Contents:
  - [Arch Linux](https://epixinvites.github.io/arch.html)
  - [C++](https://github.com/epixinvites/cppPractice) 
- - [About Me](https://github.com/epixinvites.github.io/about.html)
+ - [About Me](https://epixinvites.github.io/about.html)
