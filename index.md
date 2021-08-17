@@ -4,5 +4,6 @@
 
 ### Contents:
  - [Arch Linux](https://epixinvites.github.io/arch.html)
- - [C++](https://github.com/epixinvites/cppPractice) 
+ - [C++](https://github.com/epixinvites/cppPractice)
+ - [Project Cosmos](https://github.com/epixinvites/project-cosmos) - An old school dungeon adventure game.
  - [About Me](https://epixinvites.github.io/about.html)
